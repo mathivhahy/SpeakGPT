@@ -1,0 +1,18 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "SpeakGPT",
+    "name_for_model": "SpeakGPT",
+    "description_for_human": "Plugin for allowing ChatGPT to respond with speech",
+    "description_for_model": "Plugin for allowing ChatGPT to respond with speech",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "PLUGIN_HOSTNAME/openapi.yaml",
+        "is_user_authenticated": false
+    },
+    "logo_url": "PLUGIN_HOSTNAME/logo.png",
+    "contact_email": "support@example.com",
+    "legal_info_url": "https://example.com/legal"
+}
