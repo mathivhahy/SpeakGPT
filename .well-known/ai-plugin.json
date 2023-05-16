@@ -3,7 +3,7 @@
     "name_for_human": "SpeakGPT",
     "name_for_model": "SpeakGPT",
     "description_for_human": "Plugin for allowing ChatGPT to respond with speech",
-    "description_for_model": "Plugin for allowing ChatGPT to respond with speech",
+    "description_for_model": "Plugin for allowing ChatGPT to respond with speech. Given the model's text, the api will return an audio file of the spoken text",
     "auth": {
         "type": "none"
     },
