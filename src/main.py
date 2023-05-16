@@ -9,6 +9,20 @@ import requests
 
 PORT = 8000
 
+
+HOSTNAME = "https://speak-gpt-rust.vercel.app"
+
+def load_env_vars():
+    if os.path.isfile(os.path.join(os.path.dirname(__file__), "../.env")):
+        from dotenv import load_dotenv
+        load_dotenv()
+    
+    if os.getenv("env") == "dev":
+        global HOSTNAME
+        HOSTNAME = f"http://localhost:{PORT}"
+
+load_env_vars()
+
 app = FastAPI()
 
 app.add_middleware(
@@ -68,20 +82,16 @@ async def plugin_logo():
 
 @app.get("/.well-known/ai-plugin.json")
 async def plugin_manifest(request: Request):
-    host = request.client.host
     with open(os.path.join(os.path.dirname(__file__), "../.well-known", "ai-plugin.json")) as f:
         text = f.read()
-        scheme = "https" if host != "127.0.0.1" else "http"
-        text = text.replace("PLUGIN_HOSTNAME", f"{scheme}://{host}:{PORT}")
+        text = text.replace("PLUGIN_HOSTNAME", HOSTNAME)
         return Response(content=text, media_type="application/json")
 
 @app.get("/openapi.yaml")
 async def openapi_spec(request: Request):
-    host = request.client.host
     with open(os.path.join(os.path.dirname(__file__), "..", "openapi.yaml")) as f:
         text = f.read()
-        scheme = "https" if host != "127.0.0.1" else "http"
-        text = text.replace("PLUGIN_HOSTNAME", f"{scheme}://{host}:{PORT}")
+        text = text.replace("PLUGIN_HOSTNAME", HOSTNAME)
         return Response(content=text, media_type="text/yaml")
 
 
